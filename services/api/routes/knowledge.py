@@ -21,7 +21,8 @@ if str(_REPO_ROOT) not in sys.path:
 from graph.workflow import graph  # noqa: E402
 from graph.tracing import actual_sources, finish_trace, read_trace, start_trace  # noqa: E402
 from agent_turn_context import prepare_pending_proposal  # noqa: E402
-from prompt_injection import scan_user_input, log_security_alert  # noqa: E402
+from prompt_injection import scan_user_input  # noqa: E402
+from agent_audit import log_security_alert  # noqa: E402
 from rate_limiter import check_rate_limit  # noqa: E402
 from agent_audit import log_agent_action, AUDIT_EVENT_QUERY_RECEIVED  # noqa: E402
 

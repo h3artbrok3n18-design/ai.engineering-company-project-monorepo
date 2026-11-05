@@ -17,14 +17,18 @@ COPY services/reporting/ /app/reporting/
 COPY data/ /app/data/
 COPY docs/company-knowledge-base/ /app/docs/company-knowledge-base/
 
-# Create non-root user and set up directory permissions
+# Create non-root user with home directory and set up directory permissions
 RUN addgroup --system --gid 1001 brasaland && \
-    adduser --system --uid 1001 --ingroup brasaland --no-create-home brasaland && \
-    mkdir -p /app/data /app/logs && \
-    chown -R brasaland:brasaland /app && \
+    adduser --system --uid 1001 --ingroup brasaland --home /home/brasaland brasaland && \
+    mkdir -p /app/data /app/logs /app/.cache && \
+    chown -R brasaland:brasaland /app /home/brasaland && \
     chmod 755 /app && \
     chmod 750 /app/data && \
-    chmod 750 /app/logs
+    chmod 750 /app/logs && \
+    chmod 750 /app/.cache
+
+# Set UV cache to a writable location
+ENV UV_CACHE_DIR=/app/.cache/uv
 
 # Switch to non-root user
 USER brasaland
